@@ -1,2 +1,11 @@
+# Ignore all non-dot files and directories
+/*
+!.config/*
+!.gitignore
+
 # Neovim plugins (managed by git inside pack)
 .config/nvim/pack/
+
+# Tmux plugins and logs
+.config/tmux/plugins/
+.config/tmux/tmux-*.log

@@ -23,7 +23,7 @@ cmd([[
 ]])
 
 opt.backspace = { "eol", "start", "indent" } -- allow backspacing over everything in insert mode
-opt.clipboard = "unnamedplus"                -- allow neovim to access the system clipboard
+opt.clipboard = "unnamed,unnamedplus"        -- allow neovim to access the system clipboard
 opt.fileencoding = "utf-8"                   -- the encoding written to a file
 opt.encoding = "utf-8"                       -- the encoding
 opt.matchpairs = { "(:)", "{:}", "[:]", "<:>" }
@@ -81,10 +81,12 @@ opt.writebackup = false -- if a file is being edited by another program (or was 
 -- autocomplete
 opt.completeopt = { "menu", "menuone", "noselect" } -- mostly just for cmp
 opt.shortmess = opt.shortmess + {
-    c = true
-} -- hide all the completion messages, e.g. "-- XXX completion (YYY)", "match 1 of 2", "The only match", "Pattern not found"
-
--- By the way, -- INSERT -- is unnecessary anymore because the mode information is displayed in the statusline.
+    c = true,
+    W = true,
+    F = true,
+    t = true,
+    T = true,
+}
 opt.showmode = true
 
 -- perfomance

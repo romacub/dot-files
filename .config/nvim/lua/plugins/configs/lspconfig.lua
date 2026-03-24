@@ -159,7 +159,6 @@ lspconfig.gopls.setup({
 --     capabilities = capabilities,
 -- })
 
-print("LSP servers configured successfully!")
 
 --- ----------------------------------------------------------------------------------
 --- -- lspconfig.lua (FIXED)

@@ -33,9 +33,46 @@ autocmd("BufWritePre", {
 
 -- Auto format on save using the attached (optionally filtered) language servere clients
 -- https://neovim.io/doc/user/lsp.html#vim.lsp.buf.format()
+-- autocmd("BufWritePre", {
+--     pattern = "",
+--     command = ":silent lua vim.lsp.buf.format()"
+-- })
 autocmd("BufWritePre", {
-    pattern = "",
-    command = ":silent lua vim.lsp.buf.format()"
+    callback = function(args)
+        local ft = vim.bo[args.buf].filetype
+        -- temporarly disable
+        if ft == "cs" then
+            return
+        end
+
+        -- if ft == "cs" then
+        --     vim.lsp.buf.format({
+        --         bufnr = args.buf,
+        --         filter = function(client) return client.name == "omnisharp" end,
+        --         timeout_ms = 4000,
+        --     })
+        --     return
+        -- end
+
+        local clients = vim.lsp.get_clients({ bufnr = args.buf })
+        local has_formatter = false
+
+        for _, client in ipairs(clients) do
+            if client.server_capabilities
+                and client.server_capabilities.documentFormattingProvider
+            then
+                has_formatter = true
+                break
+            end
+        end
+
+        if not has_formatter then
+            return
+        end
+
+        -- for everything else, keep your normal behavior (optional)
+        vim.lsp.buf.format({ bufnr = args.buf, timeout_ms = 4000 })
+    end,
 })
 
 -- Don't auto commenting new lines

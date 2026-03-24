@@ -1,7 +1,9 @@
-# Ignore all non-dot files and directories
+# Ignore all non-dot files and directories, except for README.md
 /*
-!.config/*
+!.config/
+!.config/**
 !.gitignore
+!README.md
 
 # Neovim plugins (managed by git inside pack)
 .config/nvim/pack/

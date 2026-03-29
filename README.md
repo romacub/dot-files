@@ -55,3 +55,4 @@ I prefer a minimal visual style and the Rosé Pine theme.
 - This was created mainly for my own use. I don't recommend doing anything without knowing what you're doing.
 - Neovim config is especially messy. It has nested repos and commit hashes. If you dare to use it, be prepared to deal with it.
 - Tmux has its plugin directory ignored.
+- I use vim mode everywhere I can.

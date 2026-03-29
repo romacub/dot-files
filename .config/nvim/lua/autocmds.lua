@@ -40,19 +40,14 @@ autocmd("BufWritePre", {
 autocmd("BufWritePre", {
     callback = function(args)
         local ft = vim.bo[args.buf].filetype
-        -- temporarly disable
         if ft == "cs" then
+            vim.lsp.buf.format({
+                bufnr = args.buf,
+                filter = function(client) return client.name == "omnisharp" end,
+                timeout_ms = 4000,
+            })
             return
         end
-
-        -- if ft == "cs" then
-        --     vim.lsp.buf.format({
-        --         bufnr = args.buf,
-        --         filter = function(client) return client.name == "omnisharp" end,
-        --         timeout_ms = 4000,
-        --     })
-        --     return
-        -- end
 
         local clients = vim.lsp.get_clients({ bufnr = args.buf })
         local has_formatter = false

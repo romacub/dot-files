@@ -44,8 +44,9 @@ I prefer a minimal visual style and the Rosé Pine theme.
 - [ ] Deal with Neovim config:
     - nested repo in nvim/pack
     - commit hashes in nvim/lazy-lock.json
+    - configure new plugins
 - [ ] Add more explanations for existing configs
-- [ ] Rewrite the Neovim config myself
+- [x] Rewrite the Neovim config myself
 - [ ] Create an installation script
 - [ ] Describe required dependencies
 

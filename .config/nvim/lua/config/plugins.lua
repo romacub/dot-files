@@ -112,7 +112,18 @@ require("lazy").setup({
     {
         "nvim-mini/mini.surround",
         version = false,
-        opts = {},
+        opts = {
+            mappings = {
+                add = "ga",
+                delete = "gr",
+                find = "gf",
+                find_left = "gF",
+                highlight = "gh",
+                replace = "gR",
+                suffix_last = "l",
+                suffix_next = "n",
+            },
+        },
     },
 
     {

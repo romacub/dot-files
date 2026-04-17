@@ -128,7 +128,6 @@ require("lazy").setup({
 
     {
         "saghen/blink.cmp",
-        version = "1.*",
         opts = {
             fuzzy = {
                 implementation = "lua",
@@ -206,7 +205,6 @@ require("lazy").setup({
             },
             skip_confirm_for_simple_edits = true,
             prompt_save_on_select_new_entry = true,
-            constrain_cursor = "editable",
             watch_for_changes = true,
             delete_to_trash = true,
 
@@ -250,7 +248,6 @@ require("lazy").setup({
                 end,
 
                 natural_order = "fast",
-                case_insensitive = false,
                 sort = {
                     { "type", "asc" },
                     { "name", "asc" },

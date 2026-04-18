@@ -37,7 +37,7 @@ The main goals are:
 - low maintenance cost
 - practical features without unnecessary complexity
 
-I prefer a minimal visual style and the Rosé Pine theme.
+I prefer a minimal visual style and the \[Rosé Pine|Tokyonight\] theme.
 
 ## TODO
 
@@ -49,11 +49,12 @@ I prefer a minimal visual style and the Rosé Pine theme.
 - [x] Rewrite the Neovim config myself
 - [ ] Create an installation script
 - [ ] Describe required dependencies
+- [ ] Fix render-markdown.nvim plugin not working when opening a .md file from cli
 
 ## Note to __potential__ users
 
 - Things are quite messy just yet.
 - This was created mainly for my own use. I don't recommend doing anything without knowing what you're doing.
-- Neovim config is especially messy. It has nested repos and commit hashes. If you dare to use it, be prepared to deal with it.
+- Neovim config is especially messy. It has commit hashes in `lazy-lock.json`. If you dare to use it, be prepared to deal with it.
 - Tmux has its plugin directory ignored.
 - I use vim mode everywhere I can.

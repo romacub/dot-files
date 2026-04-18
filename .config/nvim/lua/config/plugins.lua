@@ -342,13 +342,27 @@ require("lazy").setup({
 
     {
         "rose-pine/neovim",
+        lazy = true,
         name = "rose-pine",
+        opts = {
+            styles = {
+                transparency = true,
+            },
+        },
     },
 
     {
         "folke/tokyonight.nvim",
+        lazy = true,
+        opts = {
+            transparent = true,
+        },
     },
 })
+
+-- colorscheme settings
+-- vim.cmd("colorscheme rose-pine")
+vim.cmd("colorscheme tokyonight")
 
 -- treesitter settings
 vim.opt.foldlevel = 99

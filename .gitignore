@@ -1,13 +1,23 @@
-# Ignore all non-dot files and directories, except for README.md
-/*
+# Ignore all files and directories recursively, except for configured ones:
+/**
+
+# Allow the .config directory itself
 !.config/
-!.config/**
+
+# Allow the specific subdirectories (the directories themselves)
+!.config/nvim/
+!.config/tmux/
+!.config/kitty/
+
+# Then allow everything inside those directories
+!.config/nvim/**
+!.config/tmux/**
+!.config/kitty/**
+
+# And except for git files
 !.gitignore
 !README.md
 
-# Neovim plugins (managed by git inside pack)
-.config/nvim/pack/
-
-# Tmux plugins and logs
+# But ignore tmux plugins and logs
 .config/tmux/plugins/
 .config/tmux/tmux-*.log

@@ -1,3 +1,6 @@
+-- File for keymaps. For now it contains a little bit of plugins setttings like conform
+-- but it is yet to be moved to plugins.lua.
+
 local function visual_paste_from_plus_and_store_selection()
     local plus = vim.fn.getreg('+', 1, true)
     local plus_type = vim.fn.getregtype('+')

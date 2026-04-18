@@ -153,21 +153,101 @@ require("lazy").setup({
 
     {
         "nvim-treesitter/nvim-treesitter",
+        lazy = false,
         build = ":TSUpdate",
-        main = "nvim-treesitter.config",
-        opts = {
-            ensure_installed = {
+        config = function()
+            local ts = require("nvim-treesitter")
+
+            ts.setup({
+                install_dir = vim.fn.stdpath("data") .. "/site",
+            })
+
+            ts.install({
+                "lua",
+                "vim",
+                "vimdoc",
+                "query",
                 "markdown",
                 "markdown_inline",
                 "html",
                 "yaml",
-            },
-            highlight = {
-                enable = true,
-            },
-        },
-    },
+                "json",
+                "toml",
+                "bash",
+                "python",
+                "go",
+                "java",
+                "javascript",
+                "c_sharp",
+                "clojure",
+            }):wait(300000)
 
+            vim.api.nvim_create_autocmd("FileType", {
+                pattern = {
+                    "lua",
+                    "vim",
+                    "markdown",
+                    "html",
+                    "yaml",
+                    "json",
+                    "toml",
+                    "sh",
+                    "python",
+                    "go",
+                    "java",
+                    "javascript",
+                    "cs",
+                    "clojure",
+                },
+                callback = function()
+                    vim.treesitter.start()
+                end,
+            })
+
+            vim.api.nvim_create_autocmd("FileType", {
+                pattern = {
+                    "lua",
+                    "vim",
+                    "markdown",
+                    "html",
+                    "yaml",
+                    "json",
+                    "toml",
+                    "sh",
+                    "python",
+                    "go",
+                    "java",
+                    "javascript",
+                    "cs",
+                    "clojure",
+                },
+                callback = function()
+                    vim.wo.foldmethod = "expr"
+                    vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+                end,
+            })
+
+            vim.api.nvim_create_autocmd("FileType", {
+                pattern = {
+                    "lua",
+                    "python",
+                    "go",
+                    "sh",
+                    "yaml",
+                    "json",
+                    "toml",
+                    "html",
+                    "java",
+                    "javascript",
+                    "cs",
+                    "clojure",
+                },
+                callback = function()
+                    vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+                end,
+            })
+        end,
+    },
     {
         "MeanderingProgrammer/render-markdown.nvim",
         event = { "BufReadPre", "BufNewFile" },

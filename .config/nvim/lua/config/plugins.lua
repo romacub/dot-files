@@ -350,6 +350,11 @@ require("lazy").setup({
     },
 })
 
+-- treesitter settings
+vim.opt.foldlevel = 99
+vim.opt.foldlevelstart = 99
+
+-- lsp settings
 pcall(require, "lspconfig")
 
 vim.lsp.config("ruff", {

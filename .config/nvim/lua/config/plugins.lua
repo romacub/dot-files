@@ -334,7 +334,16 @@ require("lazy").setup({
                 },
             },
         },
-    }
+    },
+
+    {
+        "rose-pine/neovim",
+        name = "rose-pine",
+    },
+
+    {
+        "folke/tokyonight.nvim",
+    },
 })
 
 pcall(require, "lspconfig")

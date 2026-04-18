@@ -1,3 +1,5 @@
+-- File for neovim settings.
+
 vim.g.mapleader = ' '
 
 vim.opt.matchpairs = {

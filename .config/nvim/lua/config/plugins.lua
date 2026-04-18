@@ -1,3 +1,7 @@
+-- File for plugin initialization via lazy and their settings and keymaps.
+-- The config designed in a way that you can remove line that adds this file
+-- from init.lua and have everything working without plugins.
+
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 
 if not (vim.uv or vim.loop).fs_stat(lazypath) then

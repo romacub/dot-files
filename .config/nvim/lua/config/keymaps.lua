@@ -155,10 +155,3 @@ vim.keymap.set("n", "[h", nav_and_preview("prev"), { desc = "Prev hunk + preview
 vim.keymap.set("n", "<leader>b", "<cmd>Gitsigns blame_line<CR>", { desc = "blame line under cursor" })
 vim.keymap.set("n", "<leader>h", "<cmd>Gitsigns preview_hunk<CR>", { desc = "preview hunk" })
 vim.keymap.set("n", "<leader>st", "<cmd>Gitsigns stage_hunk<CR>", { desc = "stage / unstage hunk" })
-
-helpers.bind_bilang("n", "<leader>mr", "<leader>ьк", function()
-    local ok = pcall(require, "render-markdown")
-    if ok then
-        vim.cmd("RenderMarkdown toggle")
-    end
-end, { desc = "Toggle rendered markdown" })

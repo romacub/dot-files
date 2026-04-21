@@ -384,10 +384,9 @@ vim.lsp.enable("pyright")
 vim.lsp.enable("csharp_ls")
 
 -- Gitsigns settings
-
 local gitsigns = require("gitsigns")
 
-local function nav_and_preview(direction)
+local function nav_and_preview_inline(direction)
     return function()
         if vim.wo.diff then
             if direction == "next" then
@@ -401,14 +400,14 @@ local function nav_and_preview(direction)
         gitsigns.nav_hunk(direction)
 
         vim.defer_fn(function()
-            pcall(vim.cmd, "pclose")
-            pcall(gitsigns.preview_hunk)
+            pcall(gitsigns.preview_hunk_inline)
         end, 50)
     end
 end
 
-vim.keymap.set("n", "]h", nav_and_preview("next"), { desc = "Next hunk + preview" })
-vim.keymap.set("n", "[h", nav_and_preview("prev"), { desc = "Prev hunk + preview" })
-vim.keymap.set("n", "<leader>b", "<cmd>Gitsigns blame_line<CR>", { desc = "blame line under cursor" })
-vim.keymap.set("n", "<leader>h", "<cmd>Gitsigns preview_hunk<CR>", { desc = "preview hunk" })
-vim.keymap.set("n", "<leader>st", "<cmd>Gitsigns stage_hunk<CR>", { desc = "stage / unstage hunk" })
+helpers.bind_bilang("n", "<A-j>", "<A-о>", nav_and_preview_inline("next"), { desc = "Next hunk + inline preview" })
+helpers.bind_bilang("n", "<A-k>", "<A-л>", nav_and_preview_inline("prev"), { desc = "Prev hunk + inline preview" })
+
+helpers.bind_bilang("n", "<leader>b", "<leader>и", "<cmd>Gitsigns blame_line<CR>", { desc = "blame line under cursor" })
+helpers.bind_bilang("n", "<leader>h", "<leader>р", "<cmd>Gitsigns preview_hunk<CR>", { desc = "preview hunk" })
+helpers.bind_bilang("n", "<leader>st", "<leader>ые", "<cmd>Gitsigns stage_hunk<CR>", { desc = "stage / unstage hunk" })

@@ -1,7 +1,0 @@
-- [x] - add bilang keymaps
-- [ ] - moved hunk maps to plugin file
-- [ ] - deal with v12
-- [ ] - add better Gitsigns keymaps:
-  - blame_inline (better on ]h [h)
-  - blame (not now but later)
-  - smth else?

@@ -49,7 +49,9 @@ I prefer a minimal visual style and the \[Rosé Pine|Tokyonight\] theme.
 - [x] Rewrite the Neovim config myself
 - [ ] Create an installation script
 - [ ] Describe required dependencies
-- [ ] Fix render-markdown.nvim plugin not working when opening a .md file from cli
+- [ ] Inspect what plugins loads when and why
+    - Fix render-markdown.nvim plugin not working when opening a .md file from cli
+- [ ] Deal with nvim v0.12.0
 
 ## Note to __potential__ users
 

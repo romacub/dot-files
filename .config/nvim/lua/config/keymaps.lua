@@ -1,4 +1,4 @@
--- File for keymaps. For now it contains a little bit of plugins setttings like conform and telescope
+-- File for keymaps. For now it contains a little bit of plugins setttings like conform
 -- but it is yet to be moved to plugins.lua.
 
 local helpers = require("config.helpers")
@@ -71,12 +71,6 @@ local function show_a_diag_at_index(x)
     })
 end
 
-local function telescope_builtin(name)
-    return function()
-        require("telescope.builtin")[name]()
-    end
-end
-
 -- disabled for Oil trial period
 -- helpers.bind_bilang('n', 't', 'е', call_netrw, { desc = 'open file explorer in current directory' })
 
@@ -115,15 +109,3 @@ helpers.bind_bilang({ "n", "v" }, "<leader>a", "<leader>ф", vim.lsp.buf.code_ac
 
 helpers.bind_bilang("n", "<C-k>", "<C-л>", function() show_a_diag_at_index(-1) end, { desc = "show previous diagnostic" })
 helpers.bind_bilang("n", "<C-j>", "<C-о>", function() show_a_diag_at_index(1) end, { desc = "show next diagnostic" })
-
-helpers.bind_bilang("n", "<leader>ff", "<leader>аа", telescope_builtin("find_files"), { desc = "Find files" })
-helpers.bind_bilang("n", "<leader>fg", "<leader>ап", telescope_builtin("live_grep"), { desc = "Live grep" })
-helpers.bind_bilang("n", "<leader>fb", "<leader>фи", telescope_builtin("buffers"), { desc = "Buffers" })
-helpers.bind_bilang("n", "<leader>fh", "<leader>өр", telescope_builtin("help_tags"), { desc = "Help tags" })
-helpers.bind_bilang("n", "<leader>fo", "<leader>щ", telescope_builtin("oldfiles"), { desc = "Recent files" })
-helpers.bind_bilang("n", "<leader>fw", "<leader>ц", telescope_builtin("grep_string"), { desc = "Grep word under cursor" })
-helpers.bind_bilang("n", "<leader>fd", "<leader>в", telescope_builtin("diagnostics"), { desc = "Diagnostics" })
-
-helpers.bind_bilang("n", "<leader>do", "<leader>вщ", "<cmd>DiffviewOpen<CR>", { desc = "Open diffview" })
-helpers.bind_bilang("n", "<leader>dc", "<leader>вс", "<cmd>DiffviewClose<CR>", { desc = "Close diffview" })
-helpers.bind_bilang("n", "<leader>dh", "<leader>вр", "<cmd>DiffviewFileHistory %<CR>", { desc = "File history" })

@@ -382,3 +382,33 @@ vim.lsp.enable("ruff")
 vim.lsp.enable("gopls")
 vim.lsp.enable("pyright")
 vim.lsp.enable("csharp_ls")
+
+-- Gitsigns settings
+
+local gitsigns = require("gitsigns")
+
+local function nav_and_preview(direction)
+    return function()
+        if vim.wo.diff then
+            if direction == "next" then
+                vim.cmd.normal({ "]c", bang = true })
+            else
+                vim.cmd.normal({ "[c", bang = true })
+            end
+            return
+        end
+
+        gitsigns.nav_hunk(direction)
+
+        vim.defer_fn(function()
+            pcall(vim.cmd, "pclose")
+            pcall(gitsigns.preview_hunk)
+        end, 50)
+    end
+end
+
+vim.keymap.set("n", "]h", nav_and_preview("next"), { desc = "Next hunk + preview" })
+vim.keymap.set("n", "[h", nav_and_preview("prev"), { desc = "Prev hunk + preview" })
+vim.keymap.set("n", "<leader>b", "<cmd>Gitsigns blame_line<CR>", { desc = "blame line under cursor" })
+vim.keymap.set("n", "<leader>h", "<cmd>Gitsigns preview_hunk<CR>", { desc = "preview hunk" })
+vim.keymap.set("n", "<leader>st", "<cmd>Gitsigns stage_hunk<CR>", { desc = "stage / unstage hunk" })

@@ -2,6 +2,8 @@
 -- The config designed in a way that you can remove line that adds this file
 -- from init.lua and have everything working without plugins.
 
+local helpers = require("config.helpers")
+
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
@@ -269,75 +271,76 @@ require("lazy").setup({
         "stevearc/oil.nvim",
         lazy = false,
         dependencies = { "nvim-tree/nvim-web-devicons" },
-        keys = {
-            { "<leader>t", "<cmd>Oil<CR>", desc = "Open parent directory in Oil" },
-            { "<leader>е", "<cmd>Oil<CR>", desc = "Open parent directory in Oil" },
-        },
-        opts = {
-            default_file_explorer = true,
-            columns = {
-                "icon",
-            },
-            buf_options = {
-                buflisted = false,
-                bufhidden = "hide",
-            },
-            win_options = {
-                spell = false,
-                list = false,
-                concealcursor = "nvic",
-            },
-            skip_confirm_for_simple_edits = true,
-            prompt_save_on_select_new_entry = true,
-            watch_for_changes = true,
-            delete_to_trash = true,
-
-            keymaps = {
+        keys = (function()
+            local keys = {}
+            vim.list_extend(keys, helpers.make_lazy_bilang_keys("<leader>t", "<leader>е", "<cmd>Oil<CR>", "Open parent directory in Oil"))
+            return keys
+        end)(),
+        opts = function()
+            local keymaps = {
                 ["<CR>"] = "actions.select",
-                ["<C-l>"] = "actions.refresh",
-                ["gx"] = "actions.open_external",
-                ["<C-h>"] = { "actions.toggle_hidden", mode = "n" },
-                ["g?"] = { "actions.show_help", mode = "n" },
+            }
 
-                ["<C-д>"] = "actions.refresh",
-                ["пч"] = "actions.open_external",
-                ["<C-р>"] = { "actions.toggle_hidden", mode = "n" },
-                ["п?"] = { "actions.show_help", mode = "n" },
-            },
+            helpers.add_bilang_table_keymap(keymaps, "<C-l>", "<C-д>", "actions.refresh")
+            helpers.add_bilang_table_keymap(keymaps, "gx", "пч", "actions.open_external")
+            helpers.add_bilang_table_keymap(keymaps, "<C-h>", "<C-р>", { "actions.toggle_hidden", mode = "n" })
+            helpers.add_bilang_table_keymap(keymaps, "g?", "п?", { "actions.show_help", mode = "n" })
 
-            view_options = {
-                show_hidden = false,
-
-                is_hidden_file = function(name, _)
-                    local hidden_patterns = {
-                        "^%.git$",
-                        "^%.idea$",
-                        "^%.vscode$",
-                        "^__pycache__$",
-                        "%.pyc$",
-                        "%.pyo$",
-                    }
-
-                    for _, pattern in ipairs(hidden_patterns) do
-                        if name:match(pattern) then
-                            return true
-                        end
-                    end
-
-                    return name:match("^%.") ~= nil
-                end,
-
-                is_always_hidden = function(name, _)
-                    return name == ".."
-                end,
-
-                natural_order = "fast",
-                sort = {
-                    { "type", "asc" },
-                    { "name", "asc" },
+            return {
+                default_file_explorer = true,
+                columns = {
+                    "icon",
                 },
-            },
-        },
+                buf_options = {
+                    buflisted = false,
+                    bufhidden = "hide",
+                },
+                win_options = {
+                    spell = false,
+                    list = false,
+                    concealcursor = "nvic",
+                },
+                skip_confirm_for_simple_edits = true,
+                prompt_save_on_select_new_entry = true,
+                watch_for_changes = true,
+                delete_to_trash = true,
+
+                keymaps = keymaps,
+
+                view_options = {
+                    show_hidden = false,
+
+                    is_hidden_file = function(name, _)
+                        local hidden_patterns = {
+                            "^%.git$",
+                            "^%.idea$",
+                            "^%.vscode$",
+                            "^__pycache__$",
+                            "%.pyc$",
+                            "%.pyo$",
+                        }
+
+                        for _, pattern in ipairs(hidden_patterns) do
+                            if name:match(pattern) then
+                                return true
+                            end
+                        end
+
+                        return name:match("^%.") ~= nil
+                    end,
+
+                    is_always_hidden = function(name, _)
+                        return name == ".."
+                    end,
+
+                    natural_order = "fast",
+                    sort = {
+                        { "type", "asc" },
+                        { "name", "asc" },
+                    },
+                },
+            }
+        end,
     },
 
     {

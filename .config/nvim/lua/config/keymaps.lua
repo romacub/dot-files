@@ -1,4 +1,4 @@
--- File for keymaps. For now it contains a little bit of plugins setttings like conform
+-- File for keymaps. For now it contains a little bit of plugins setttings like conform and telescope
 -- but it is yet to be moved to plugins.lua.
 
 local helpers = require("config.helpers")
@@ -77,28 +77,6 @@ local function telescope_builtin(name)
     end
 end
 
-local gitsigns = require("gitsigns")
-
-local function nav_and_preview(direction)
-    return function()
-        if vim.wo.diff then
-            if direction == "next" then
-                vim.cmd.normal({ "]c", bang = true })
-            else
-                vim.cmd.normal({ "[c", bang = true })
-            end
-            return
-        end
-
-        gitsigns.nav_hunk(direction)
-
-        vim.defer_fn(function()
-            pcall(vim.cmd, "pclose")
-            pcall(gitsigns.preview_hunk)
-        end, 50)
-    end
-end
-
 -- disabled for Oil trial period
 -- helpers.bind_bilang('n', 't', 'е', call_netrw, { desc = 'open file explorer in current directory' })
 
@@ -149,9 +127,3 @@ helpers.bind_bilang("n", "<leader>fd", "<leader>в", telescope_builtin("diagnost
 helpers.bind_bilang("n", "<leader>do", "<leader>вщ", "<cmd>DiffviewOpen<CR>", { desc = "Open diffview" })
 helpers.bind_bilang("n", "<leader>dc", "<leader>вс", "<cmd>DiffviewClose<CR>", { desc = "Close diffview" })
 helpers.bind_bilang("n", "<leader>dh", "<leader>вр", "<cmd>DiffviewFileHistory %<CR>", { desc = "File history" })
-
-vim.keymap.set("n", "]h", nav_and_preview("next"), { desc = "Next hunk + preview" })
-vim.keymap.set("n", "[h", nav_and_preview("prev"), { desc = "Prev hunk + preview" })
-vim.keymap.set("n", "<leader>b", "<cmd>Gitsigns blame_line<CR>", { desc = "blame line under cursor" })
-vim.keymap.set("n", "<leader>h", "<cmd>Gitsigns preview_hunk<CR>", { desc = "preview hunk" })
-vim.keymap.set("n", "<leader>st", "<cmd>Gitsigns stage_hunk<CR>", { desc = "stage / unstage hunk" })

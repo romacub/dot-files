@@ -24,3 +24,6 @@
 # But ignore tmux plugins and logs
 .config/tmux/plugins/
 .config/tmux/tmux-*.log
+
+# Ignore lazy lock
+.config/nvim/lazy-lock.json

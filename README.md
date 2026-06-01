@@ -57,6 +57,6 @@ I prefer a minimal visual style and the \[Rosé Pine|Tokyonight\] theme.
 
 - Things are quite messy just yet.
 - This was created mainly for my own use. I don't recommend doing anything without knowing what you're doing.
-- Neovim config is especially messy. It has commit hashes in `lazy-lock.json`. If you dare to use it, be prepared to deal with it.
+- Neovim config requires `:Lazy sync` on install, since `lazy-lock.json` file is not presented.
 - Tmux has its plugin directory ignored.
 - I use vim mode everywhere I can.

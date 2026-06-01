@@ -182,6 +182,7 @@ require("lazy").setup({
                 "bash",
                 "python",
                 "go",
+                "zig",
                 "java",
                 "javascript",
                 "c_sharp",
@@ -200,6 +201,7 @@ require("lazy").setup({
                     "sh",
                     "python",
                     "go",
+                    "zig",
                     "java",
                     "javascript",
                     "cs",
@@ -222,6 +224,7 @@ require("lazy").setup({
                     "sh",
                     "python",
                     "go",
+                    "zig",
                     "java",
                     "javascript",
                     "cs",
@@ -244,6 +247,7 @@ require("lazy").setup({
                     "toml",
                     "html",
                     "java",
+                    "zig",
                     "javascript",
                     "cs",
                     "clojure",
@@ -407,8 +411,11 @@ vim.lsp.config("ruff", {
 
 vim.lsp.enable("ruff")
 vim.lsp.enable("gopls")
+vim.lsp.enable("zls")
 vim.lsp.enable("pyright")
 vim.lsp.enable("csharp_ls")
+vim.lsp.enable("clangd")
+vim.lsp.enable("clojure_lsp")
 
 -- Gitsigns settings
 local gitsigns = require("gitsigns")

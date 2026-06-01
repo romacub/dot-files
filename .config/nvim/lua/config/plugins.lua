@@ -344,6 +344,33 @@ require("lazy").setup({
     },
 
     {
+        "mfussenegger/nvim-dap",
+        lazy = false,
+    },
+
+    {
+        "rcarriga/nvim-dap-ui",
+        dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
+        lazy = false,
+        config = function()
+            local dap = require("dap")
+            local dapui = require("dapui")
+
+            dapui.setup()
+
+            dap.listeners.after.event_initialized["dapui_config"] = function()
+                dapui.open()
+            end
+            dap.listeners.before.event_terminated["dapui_config"] = function()
+                dapui.close()
+            end
+            dap.listeners.before.event_exited["dapui_config"] = function()
+                dapui.close()
+            end
+        end,
+    },
+
+    {
         "rose-pine/neovim",
         lazy = true,
         name = "rose-pine",
@@ -432,3 +459,50 @@ helpers.bind_bilang("n", "<leader>do", "<leader>вщ", "<cmd>DiffviewOpen<CR>", 
 helpers.bind_bilang("n", "<leader>dc", "<leader>вс", "<cmd>DiffviewClose<CR>", { desc = "Close diffview" })
 helpers.bind_bilang("n", "<leader>dh", "<leader>вр", "<cmd>DiffviewFileHistory %<CR>", { desc = "File history" })
 
+-- dap settings
+local dap = require("dap")
+
+dap.adapters.gdb = {
+    type = "executable",
+    command = "gdb",
+    args = { "--interpreter=dap", "--silent" },
+}
+
+dap.configurations.c = {
+    {
+        name = "Launch C program",
+        type = "gdb",
+        request = "launch",
+        program = function()
+            return vim.fn.input("Executable: ", vim.fn.getcwd() .. "/", "file")
+        end,
+        args = function()
+            local input = vim.fn.input("Arguments: ")
+            return vim.split(input, " ", { trimempty = true })
+        end,
+        cwd = function()
+            return vim.fn.expand("%:p:h")
+        end,
+        stopAtBeginningOfMainSubprogram = false,
+    },
+}
+
+dap.configurations.cpp = dap.configurations.c
+local dap = require("dap")
+local dapui = require("dapui")
+
+vim.keymap.set("n", "<F5>", dap.continue, { desc = "Debug: continue/start" })
+vim.keymap.set("n", "<F9>", dap.toggle_breakpoint, { desc = "Debug: toggle breakpoint" })
+vim.keymap.set("n", "<F10>", dap.step_over, { desc = "Debug: step over" })
+vim.keymap.set("n", "<F12>", dap.step_into, { desc = "Debug: step into" })
+vim.keymap.set("n", "<S-F12>", dap.step_out, { desc = "Debug: step out" })
+vim.keymap.set("n", "<leader>du", dapui.toggle, { desc = "Debug: toggle UI" })
+vim.keymap.set("n", "<leader>dr", dap.repl.toggle, { desc = "Debug: REPL" })
+vim.keymap.set("n", "<leader>dc", dap.run_to_cursor, { desc = "Debug: run to cursor" })
+vim.keymap.set("n", "<leader>dq", function()
+    require("dap").terminate()
+    local ok, dapui = pcall(require, "dapui")
+    if ok then
+        dapui.close()
+    end
+end, { desc = "Debug: terminate session" })

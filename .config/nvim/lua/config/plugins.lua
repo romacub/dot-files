@@ -416,6 +416,7 @@ vim.lsp.enable("pyright")
 vim.lsp.enable("csharp_ls")
 vim.lsp.enable("clangd")
 vim.lsp.enable("clojure_lsp")
+vim.lsp.enable("bashls")
 
 -- Gitsigns settings
 local gitsigns = require("gitsigns")

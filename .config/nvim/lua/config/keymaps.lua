@@ -22,6 +22,7 @@ end
 --     vim.cmd('Explore ' .. vim.fn.fnameescape(current_dir))
 -- end
 
+-- TODO: simplify this bunch of ifs
 local function format_current_buffer()
     local ft = vim.bo.filetype
 
@@ -37,6 +38,17 @@ local function format_current_buffer()
     end
 
     if ft == "python" then
+        local ok, conform = pcall(require, "conform")
+        if ok then
+            conform.format({
+                async = true,
+                lsp_fallback = false,
+            })
+            return
+        end
+    end
+
+    if ft == "sh" then
         local ok, conform = pcall(require, "conform")
         if ok then
             conform.format({

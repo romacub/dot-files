@@ -42,6 +42,7 @@ require("lazy").setup({
             formatters_by_ft = {
                 go = { "goimports", "gofumpt" },
                 python = { "ruff_organize_imports", "ruff_fix", "ruff_format" },
+                sh = { "shfmt" },
             },
         },
     },
